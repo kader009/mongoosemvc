@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import Tasks from '../models/Task';
 
 const createTask = async (req: Request, res: Response) => {
-  const names = 'kader'
   try {
     const { name, description, isActive } = req.body;
 

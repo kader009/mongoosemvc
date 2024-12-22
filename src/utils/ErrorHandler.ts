@@ -1,13 +1,16 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from 'express';
 
-export const errorHandler = (
-  err: any,
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+/**
+ * Error handling middleware.
+ *
+ * @param {Error} err - The error object.
+ * @param {Request} req - The request object.
+ * @param {Response} res - The response object.
+ */
+
+export const errorHandler = (err: Error, req: Request, res: Response) => {
   const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
   res.status(statusCode).json({
-    message: err.message || "Server Error",
+    message: err.message || 'Server Error',
   });
 };

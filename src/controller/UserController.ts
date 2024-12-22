@@ -1,18 +1,19 @@
 import { Request, Response } from 'express';
 import User from '../models/User';
+import { UserValidation } from '../validations/UserValidation';
 
 const createUser = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { name, email, password } = req.body;
+    const validateData = UserValidation.parse(req.body);
 
-    if (!name || !email || !password) {
-      res.status(400).json({
-        success: false,
-        message: 'Name, email, and password are required',
-      });
-    }
+    // if (!name || !email || !password) {
+    //   res.status(400).json({
+    //     success: false,
+    //     message: 'Name, email, and password are required',
+    //   });
+    // }
 
-    const user = await User.create({ name, email, password });
+    const user = await User.create(validateData);
 
     res.status(201).json({
       success: true,
