@@ -6,13 +6,6 @@ const createUser = async (req: Request, res: Response): Promise<void> => {
   try {
     const validateData = UserValidation.parse(req.body);
 
-    // if (!name || !email || !password) {
-    //   res.status(400).json({
-    //     success: false,
-    //     message: 'Name, email, and password are required',
-    //   });
-    // }
-
     const user = await User.create(validateData);
 
     res.status(201).json({

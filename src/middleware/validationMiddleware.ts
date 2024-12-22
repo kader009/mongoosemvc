@@ -17,7 +17,7 @@ export const validate = (schema: ZodSchema): RequestHandler => {
         });
       }
       next();
-      next(error); // Pass other errors to the error handler
+      next(error);
     }
   };
 };
