@@ -23,7 +23,21 @@ const createTask = async (req: Request, res: Response) => {
 
 const getTask = async (req: Request, res: Response) => {
   try {
-    const task = await Tasks.find();
+    const task = await Tasks.aggregate([
+      {
+        $match: {
+          isActive: true,
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          name: 1,
+          description: 1,
+          isActive: 1,
+        },
+      },
+    ]);
     res.status(200).json({
       success: true,
       data: task,
