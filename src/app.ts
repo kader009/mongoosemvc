@@ -1,8 +1,9 @@
-import express, { Request, Response } from 'express'; 
+import express, { Request, Response } from 'express';
 import { errorHandler } from './utils/ErrorHandler';
-const app = express(); 
+const app = express();
 import userRoutes from './routes/UserRouter';
 import taskRoutes from './routes/TaskRouter';
+import notFound from './middleware/notFound';
 
 // middleware
 app.use(express.json());
@@ -18,5 +19,8 @@ app.get('/', (req: Request, res: Response) => {
     message: 'Server Live ⚡',
   });
 });
+
+// not found route
+app.use(notFound);
 
 export default app;
