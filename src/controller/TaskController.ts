@@ -71,4 +71,23 @@ const updateTask = async (req: Request, res: Response) => {
   }
 };
 
-export const taskController = { createTask, getTask, updateTask };
+const deleteTask = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const deleteTask = await Tasks.findByIdAndDelete({ _id: id });
+
+    res.status(200).json({
+      success: true,
+      message: 'Task deleted successfully',
+      data: deleteTask,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Failed to update delete',
+      error: (error as Error).message,
+    });
+  }
+};
+
+export const taskController = { createTask, getTask, updateTask,deleteTask };
