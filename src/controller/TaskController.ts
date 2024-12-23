@@ -29,14 +29,14 @@ const getTask = async (req: Request, res: Response) => {
           isActive: true,
         },
       },
-      {
-        $project: {
-          _id: 0,
-          name: 1,
-          description: 1,
-          isActive: 1,
-        },
-      },
+      // {
+      //   $project: {
+      //     _id: 0,
+      //     name: 1,
+      //     description: 1,
+      //     isActive: 1,
+      //   },
+      // },
     ]);
     res.status(200).json({
       success: true,
@@ -51,4 +51,24 @@ const getTask = async (req: Request, res: Response) => {
   }
 };
 
-export const taskController = { createTask, getTask };
+const updateTask = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const update = taskValidation.parse(req.body);
+    const updateTask = await Tasks.updateOne({ _id: id }, update, { new: true });
+
+    res.status(200).json({
+      success: true,
+      message: 'Task updated successfully',
+      data: updateTask,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Failed to update task',
+      error: (error as Error).message,
+    });
+  }
+};
+
+export const taskController = { createTask, getTask, updateTask };
