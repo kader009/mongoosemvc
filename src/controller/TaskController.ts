@@ -55,7 +55,9 @@ const updateTask = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const update = taskValidation.parse(req.body);
-    const updateTask = await Tasks.updateOne({ _id: id }, update, { new: true });
+    const updateTask = await Tasks.updateOne({ _id: id }, update, {
+      new: true,
+    });
 
     res.status(200).json({
       success: true,
@@ -84,10 +86,29 @@ const deleteTask = async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: 'Failed to update delete',
+      message: 'Failed to delete task',
       error: (error as Error).message,
     });
   }
 };
 
-export const taskController = { createTask, getTask, updateTask,deleteTask };
+const singleTask = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const deleteTask = await Tasks.findOne({ _id: id });
+
+    res.status(200).json({
+      success: true,
+      message: 'Get Single Task successfully',
+      data: deleteTask,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Failed to get single task',
+      error: (error as Error).message,
+    });
+  }
+};
+
+export const taskController = { createTask, getTask, updateTask, deleteTask,singleTask };
