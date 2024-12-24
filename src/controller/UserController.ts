@@ -1,10 +1,13 @@
 import { Request, Response } from 'express';
 import User from '../models/User';
 import { UserValidation } from '../validations/UserValidation';
+import bcrypt from 'bcrypt'
+import config from '../config';
 
 const createUser = async (req: Request, res: Response): Promise<void> => {
   try {
     const validateData = UserValidation.parse(req.body);
+    validateData.password = await bcrypt.hash(validateData.password, Number(config.bcrypt_salt))
 
     const user = await User.create(validateData);
 

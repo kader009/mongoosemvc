@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express';
+import express, { Request, Response } from 'express'; 
 import { errorHandler } from './utils/ErrorHandler';
 import cors from 'cors';
 const app = express();
