@@ -38,4 +38,28 @@ const getUsers = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-export const UserController = { getUsers, createUser };
+const loginUsers = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { email, password } = req.body;
+    const user = await User.find({ email });
+
+    if (!user) {
+      res
+        .status(400)
+        .json({ success: false, message: `Invalid ${email} and ${password}` });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: 'user login successfully',
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Failed to fetch users',
+      error: (error as Error).message,
+    });
+  }
+};
+
+export const UserController = { getUsers, createUser, loginUsers };
