@@ -41,17 +41,38 @@ const getUsers = async (req: Request, res: Response): Promise<void> => {
 const loginUsers = async (req: Request, res: Response): Promise<void> => {
   try {
     const { email, password } = req.body;
-    const user = await User.find({ email });
 
-    if (!user) {
-      res
-        .status(400)
-        .json({ success: false, message: `Invalid ${email} and ${password}` });
+    const user = await User.aggregate([
+      { $match: { email } },
+      {
+        $project: {
+          name: 1,
+          email: 1,
+          password: 1,
+          role:1
+        },
+      },
+    ]);
+
+    if (!email || !password) {
+      res.status(400).json({
+        success: false,
+        message: 'Email and password are required',
+      });
+    }
+
+    if (!user || user.length === 0) {
+      // Check if the user array is empty
+      res.status(400).json({
+        success: false,
+        message: `Invalid ${email} or ${password}`,
+      });
     }
 
     res.status(200).json({
       success: true,
       message: 'user login successfully',
+      user,
     });
   } catch (error) {
     res.status(500).json({

@@ -1,12 +1,19 @@
 import express, { Request, Response } from 'express';
 import { errorHandler } from './utils/ErrorHandler';
+import cors from 'cors';
 const app = express();
 import userRoutes from './routes/UserRouter';
 import taskRoutes from './routes/TaskRouter';
 import notFound from './middleware/notFound';
 
+const corsOption = {
+  origin: 'http://localhost:5173',
+  credentials: true,
+};
+
 // middleware
 app.use(express.json());
+app.use(cors(corsOption));
 
 app.use('/api/user', userRoutes);
 app.use('/api/task', taskRoutes);
