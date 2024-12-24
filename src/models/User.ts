@@ -4,6 +4,7 @@ export interface IUser extends Document {
   name: string;
   email: string;
   password: number;
+  role: 'user' | 'admin' | 'manager'; // Add role types here
 }
 
 const UserSchema: Schema = new Schema(
@@ -11,6 +12,11 @@ const UserSchema: Schema = new Schema(
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: Number, required: true },
+    role: {
+      type: String,
+      enum: ['user', 'admin', 'manager'], // Allowed roles
+      default: 'user', // Default role for new users
+    },
   },
   { timestamps: true }
 );
