@@ -3,6 +3,7 @@ import User from '../models/User';
 import { UserValidation } from '../validations/UserValidation';
 import bcrypt from 'bcrypt';
 import config from '../config';
+import jwt from 'jsonwebtoken';
 
 const createUser = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -83,11 +84,17 @@ const loginUsers = async (req: Request, res: Response): Promise<void> => {
       return; // Exit early
     }
 
+    // generate token
+    const token = jwt.sign({ id: user._id, role: user.role }, config.jwt_secret as string, {
+      expiresIn: '1h',
+    });
+
     // If login is successful, return user data (excluding password)
     res.status(200).json({
       success: true,
       message: 'User logged in successfully',
-      user: user
+      user,
+      token,
     });
   } catch (error) {
     res.status(500).json({
