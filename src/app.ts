@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express'; 
 import { errorHandler } from './utils/ErrorHandler';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 const app = express();
 import userRoutes from './routes/UserRouter';
 import taskRoutes from './routes/TaskRouter';
@@ -14,7 +15,7 @@ const corsOption = {
 // middleware
 app.use(express.json());
 app.use(cors(corsOption));
-
+app.use(cookieParser());
 app.use('/api/user', userRoutes);
 app.use('/api/task', taskRoutes);
 

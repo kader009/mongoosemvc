@@ -85,9 +85,13 @@ const loginUsers = async (req: Request, res: Response): Promise<void> => {
     }
 
     // generate token
-    const token = jwt.sign({ id: user._id, role: user.role }, config.jwt_secret as string, {
-      expiresIn: '1h',
-    });
+    const token = jwt.sign(
+      { id: user._id, role: user.role, name: user.name, email: user.email },
+      config.jwt_secret as string,
+      {
+        expiresIn: '1h',
+      }
+    );
 
     // If login is successful, return user data (excluding password)
     res.status(200).json({
