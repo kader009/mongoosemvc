@@ -6,6 +6,7 @@ const app = express();
 import userRoutes from './routes/UserRouter';
 import taskRoutes from './routes/TaskRouter';
 import notFound from './middleware/notFound';
+import helmet from 'helmet';
 
 const corsOption = {
   origin: 'http://localhost:5173',
@@ -16,9 +17,12 @@ const corsOption = {
 app.use(express.json());
 app.use(cors(corsOption));
 app.use(cookieParser());
+app.use(helmet());
+// routes
 app.use('/api/user', userRoutes);
 app.use('/api/task', taskRoutes);
 
+// error handler
 app.use(errorHandler);
 
 app.get('/', (req: Request, res: Response) => {
