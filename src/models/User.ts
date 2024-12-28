@@ -4,7 +4,7 @@ export interface IUser extends Document {
   name: string;
   email: string;
   password: number;
-  role: 'user' | 'admin' | 'manager'; // Add role types here
+  role: 'user' | 'admin' ; // Add role types here
 }
 
 const UserSchema: Schema = new Schema(

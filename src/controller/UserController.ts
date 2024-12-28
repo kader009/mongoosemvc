@@ -29,6 +29,7 @@ const createUser = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
+
 const getUsers = async (req: Request, res: Response): Promise<void> => {
   try {
     const user = await User.find();
