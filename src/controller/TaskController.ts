@@ -1,12 +1,13 @@
 import { Request, Response } from 'express';
 import Tasks from '../models/Task';
 import { taskValidation } from '../validations/TaskValidation';
+import { IUser } from '../models/User';
 
 const createTask = async (req: Request, res: Response) => {
   try {
     const validation = taskValidation.parse(req.body);
-
-    const task = await Tasks.create(validation);
+    const user = req.user as IUser;
+    const task = await Tasks.create({ ...validation, user: user._id });
     res.status(201).json({
       success: true,
       message: 'Task created',
