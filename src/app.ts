@@ -18,6 +18,7 @@ app.use(express.json());
 app.use(cors(corsOption));
 app.use(cookieParser());
 app.use(helmet());
+
 // routes
 app.use('/api/user', userRoutes);
 app.use('/api/task', taskRoutes);

@@ -24,13 +24,13 @@ const createUser = async (req: Request, res: Response): Promise<void> => {
     res.status(500).json({
       success: false,
       message: 'Failed to create user',
-      error: (error as Error).message,
+      error: (error as Error).message, 
     });
   }
 };
 
 
-const getUsers = async (req: Request, res: Response): Promise<void> => {
+const getUsers = async (req: Request, res: Response): Promise<void> => { 
   try {
     const user = await User.find();
     res.status(200).json({
