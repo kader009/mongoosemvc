@@ -2,11 +2,12 @@ import express, { Request, Response } from 'express';
 import { errorHandler } from './utils/ErrorHandler';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-const app = express();
 import userRoutes from './routes/UserRouter';
 import taskRoutes from './routes/TaskRouter';
 import notFound from './middleware/notFound';
 import helmet from 'helmet';
+const app = express();
+
 
 const corsOption = {
   origin: 'http://localhost:5173',
