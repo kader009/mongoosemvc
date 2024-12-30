@@ -1,18 +1,13 @@
 import { Request, Response } from 'express';
 import Tasks from '../models/Task';
 import { taskValidation } from '../validations/TaskValidation';
-// import { IUser } from '../models/User';
+import { IUser } from '../models/User';
 
 const createTask = async (req: Request, res: Response) => {
   try {
     const validation = taskValidation.parse(req.body);
-    const user = req.user as {_id:string, role:string};
+    const user = req.user as IUser;
     const task = await Tasks.create({ ...validation, user: user._id });
-    console.log(user);
-    if (!user || !user._id) {
-      return res.status(400).json({ success: false, message: 'User not authenticated' });
-    }
-
     res.status(201).json({
       success: true,
       message: 'Task created Successfully',
