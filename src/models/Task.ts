@@ -11,7 +11,12 @@ const TaskScheme: Schema = new Schema(
     name: { type: String, required: true },
     description: { type: String, required: true },
     isActive: { type: Boolean, required: true },
-    user: { type: Schema.Types.ObjectId, ref: 'User', unique: true, required: [true, 'user id is required'] },
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: 'user',
+      unique: true,
+      required: [true, 'user id is required'],
+    },
   },
   {
     timestamps: true,
