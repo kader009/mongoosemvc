@@ -8,7 +8,6 @@ import notFound from './middleware/notFound';
 import helmet from 'helmet';
 const app = express();
 
-
 const corsOption = {
   origin: 'http://localhost:5173',
   credentials: true,
