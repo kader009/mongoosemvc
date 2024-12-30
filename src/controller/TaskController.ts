@@ -7,6 +7,7 @@ const createTask = async (req: Request, res: Response) => {
   try {
     const validation = taskValidation.parse(req.body);
     const user = req.user as IUser;
+
     const task = await Tasks.create({ ...validation, user: user._id });
     res.status(201).json({
       success: true,
@@ -112,4 +113,10 @@ const singleTask = async (req: Request, res: Response) => {
   }
 };
 
-export const taskController = { createTask, getTask, updateTask, deleteTask,singleTask };
+export const taskController = {
+  createTask,
+  getTask,
+  updateTask,
+  deleteTask,
+  singleTask,
+};
