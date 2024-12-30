@@ -8,15 +8,20 @@ const createTask = async (req: Request, res: Response) => {
     const validation = taskValidation.parse(req.body);
     const user = req.user as {_id:string, role:string};
     const task = await Tasks.create({ ...validation, user: user._id });
+    console.log(user);
+    if (!user || !user._id) {
+      return res.status(400).json({ success: false, message: 'User not authenticated' });
+    }
+
     res.status(201).json({
       success: true,
-      message: 'Task created',
+      message: 'Task created Successfully',
       data: task,
     });
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: 'Failed to create user',
+      message: 'Failed to create task',
       error: (error as Error).message,
     });
   }
@@ -46,7 +51,7 @@ const getTask = async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: 'Failed to fetch users',
+      message: 'Failed to fetch tasks',
       error: (error as Error).message,
     });
   }
