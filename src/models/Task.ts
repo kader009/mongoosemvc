@@ -1,9 +1,9 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose, { Schema } from 'mongoose'
 
 interface taskType {
-  name: string;
-  description: string;
-  isActive: boolean;
+  name: string
+  description: string
+  isActive: boolean
 }
 
 const TaskScheme: Schema = new Schema(
@@ -14,9 +14,9 @@ const TaskScheme: Schema = new Schema(
   },
   {
     timestamps: true,
-  }
-);
+  },
+)
 
-const Tasks = mongoose.model<taskType>('task', TaskScheme);
+const Tasks = mongoose.model<taskType>('task', TaskScheme)
 
-export default Tasks;
+export default Tasks
