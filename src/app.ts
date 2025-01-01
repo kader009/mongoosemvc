@@ -26,6 +26,14 @@ app.use('/api/task', taskRoutes)
 // error handler
 app.use(errorHandler)
 
+/**
+ * Health check endpoint
+ * @route GET /
+ * @param {Request} req - Express request object
+ * @param {Response} res - Express response object
+ * @returns {Object} Status message indicating server is running
+ */
+
 app.get('/', (req: Request, res: Response) => {
   res.send({
     status: true,
