@@ -8,14 +8,13 @@ import notFound from './middleware/notFound'
 import helmet from 'helmet'
 const app = express()
 
-/**
- * CORS configuration object
- * @type {Object}
- * @property {string} origin - Allowed origin for CORS requests
- * @property {boolean} credentials - Allow credentials in CORS requests
- */
+// Replace JSDoc with type declaration
+type CorsOptions = {
+  origin: string
+  credentials: boolean
+}
 
-const corsOption = {
+const corsOption: CorsOptions = {
   origin: 'http://localhost:5173',
   credentials: true,
 }
