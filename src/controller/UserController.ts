@@ -29,6 +29,26 @@ const createUser = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
+const getUser = async (req: Request, res: Response) => {
+  try {
+    const users = await User.findById(req.params.id).select('-password');
+
+    if (!users) {
+      const error = new Error('User not found') as Error & { status: number };
+      error.status = 404;
+      throw error;
+    }
+
+    res.status(200).json({ success: true, data: users });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Failed to create user',
+      error: (error as Error).message,
+    });
+  }
+};
+
 const getUsers = async (req: Request, res: Response): Promise<void> => {
   try {
     const user = await User.find();
@@ -109,4 +129,4 @@ const loginUsers = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-export const UserController = { getUsers, createUser, loginUsers };
+export const UserController = { getUsers, getUser, createUser, loginUsers };
