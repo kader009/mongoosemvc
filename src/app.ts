@@ -26,8 +26,8 @@ app.use(cookieParser())
 app.use(helmet())
 
 // routes
-app.use('/api/user', userRoutes)
-app.use('/api/task', taskRoutes)
+app.use('/api/v1/user', userRoutes)
+app.use('/api/v1/task', taskRoutes)
 
 // error handler
 app.use(errorHandler)
