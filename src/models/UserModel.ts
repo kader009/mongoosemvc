@@ -15,6 +15,7 @@ const UserSchema: Schema = new Schema(
       required: [true, 'User email is required'],
       unique: true,
       trim: true,
+      lowercase:true
     },
     password: { type: String, required: true },
     role: {
