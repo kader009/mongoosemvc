@@ -1,7 +1,7 @@
 import { UserValidation } from '../validations/UserValidation';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import User from '../models/User';
+import User from '../models/UserModel';
 import config from '../config';
 import { Request, Response } from 'express';
 
@@ -92,6 +92,5 @@ const SiginUser = async (req: Request, res: Response): Promise<void> => {
     });
   }
 };
-
 
 export const AuthController = { SingupUser, SiginUser };

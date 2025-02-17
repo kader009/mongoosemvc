@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import Tasks from '../models/Task';
+import Tasks from '../models/TaskModel';
 import { taskValidation } from '../validations/TaskValidation';
 
 const createTask = async (req: Request, res: Response) => {
