@@ -1,15 +1,15 @@
 import { Router } from 'express';
 import { validate } from '../middleware/validationMiddleware';
 import { UserValidation } from '../validations/UserValidation';
-import { UserController } from '../controller/UserController';
+import { AuthController } from '../controller/AuthController';
 
 const authRouter = Router();
 
 authRouter.post(
   '/sign-up',
   validate(UserValidation),
-  UserController.createUser,
+  AuthController.SingupUser
 );
-authRouter.post('/sign-in', UserController.loginUsers);
+authRouter.post('/sign-in', AuthController.SiginUser);
 
 export default authRouter;
