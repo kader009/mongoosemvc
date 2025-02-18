@@ -7,6 +7,8 @@ import taskRoutes from './routes/TaskRouter';
 import notFound from './middleware/notFound';
 import helmet from 'helmet';
 import authRouter from './routes/AuthRouter';
+
+// main app here
 const app = express();
 
 // Replace JSDoc with type declaration

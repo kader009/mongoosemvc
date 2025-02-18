@@ -2,13 +2,13 @@ import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import config from '../config';
 
-export const authentication = async (
+export const authentication = async ( 
   req: Request,
   res: Response,
   next: NextFunction,
 ): Promise<void> => {
   const token = req?.headers?.authorization?.split(' ')[1];
-  
+
   if (!token) {
     res.status(401).json({
       success: false,
