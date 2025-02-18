@@ -15,9 +15,9 @@ const UserSchema: Schema = new Schema(
       required: [true, 'User email is required'],
       unique: true,
       trim: true,
-      lowercase:true
+      lowercase: true,
     },
-    password: { type: String, required: true },
+    password: { type: String, required: [true, 'User password is required'] },
     role: {
       type: String,
       enum: ['user', 'admin'], // Allowed roles
