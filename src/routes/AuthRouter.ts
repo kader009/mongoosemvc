@@ -8,7 +8,7 @@ const authRouter = Router();
 authRouter.post(
   '/sign-up',
   validate(UserValidation),
-  AuthController.SingupUser
+  AuthController.SingupUser,
 );
 authRouter.post('/sign-in', AuthController.SiginUser);
 

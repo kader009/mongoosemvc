@@ -43,7 +43,7 @@ app.get('/', (req: Request, res: Response) => {
   });
 });
 
-// not found route
+// not found error message
 app.use(notFound);
 
 export default app;

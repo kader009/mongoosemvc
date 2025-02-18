@@ -4,7 +4,11 @@ import { taskValidation } from '../validations/TaskValidation';
 
 const createTask = async (req: Request, res: Response) => {
   try {
-    const validation = taskValidation.parse(req.body);
+    const validation = taskValidation.parse({
+      ...req.body,
+      user: req.user?._id,
+    });
+    
     const task = await Tasks.create({ ...validation });
 
     res.status(201).json({
@@ -12,6 +16,7 @@ const createTask = async (req: Request, res: Response) => {
       message: 'Task created Successfully',
       data: task,
     });
+
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -42,6 +47,7 @@ const getTask = async (req: Request, res: Response) => {
       success: true,
       data: task,
     });
+
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -83,6 +89,7 @@ const deleteTask = async (req: Request, res: Response) => {
       message: 'Task deleted successfully',
       data: deleteTask,
     });
+
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -102,6 +109,7 @@ const singleTask = async (req: Request, res: Response) => {
       message: 'Get Single Task successfully',
       data: deleteTask,
     });
+
   } catch (error) {
     res.status(500).json({
       success: false,

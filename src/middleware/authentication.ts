@@ -2,7 +2,19 @@ import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import config from '../config';
 
-export const authentication = async ( 
+interface JwtPayload {
+  _id: string;
+  role: string;
+}
+
+// Extend Request to include user
+declare module 'express' {
+  interface Request {
+    user?: JwtPayload;
+  }
+}
+
+export const authentication = async (
   req: Request,
   res: Response,
   next: NextFunction,
@@ -18,9 +30,10 @@ export const authentication = async (
   }
 
   try {
-    const decoded = jwt.verify(token, config.jwt_secret as string);
-    req.user = decoded as { role: string };
+    const decoded = jwt.verify(token, config.jwt_secret as string) as { role: string, _id: string };
+    req.user = decoded 
     next();
+
   } catch (error) {
     res.status(401).json({
       success: false,
