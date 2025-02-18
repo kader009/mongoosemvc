@@ -8,6 +8,17 @@ import { Request, Response } from 'express';
 const SingupUser = async (req: Request, res: Response): Promise<void> => {
   try {
     const validateData = UserValidation.parse(req.body);
+
+    const existingUser = await User.findOne({ email: validateData.email });
+
+    if (existingUser) {
+      res.status(409).json({
+        success: false,
+        messsage: 'User with this email already exists',
+      });
+      return;
+    }
+
     validateData.password = await bcrypt.hash(
       validateData.password,
       Number(config.bcrypt_salt),
@@ -53,6 +64,7 @@ const SiginUser = async (req: Request, res: Response): Promise<void> => {
       });
       return; // Exit early
     }
+
     // Compare provided password with hashed password
     const isPasswordValid = await bcrypt.compare(
       password,
